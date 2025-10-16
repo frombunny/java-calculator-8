@@ -2,7 +2,7 @@ package calculator.domain;
 
 public class CustomDelimiterExtractor {
     private static final String PREFIX = "//";
-    private static final String SUFFIX = "\n";
+    private static final String SUFFIX = "\\n";
 
     public char extractDelimiter(String input) {
         int start = input.indexOf(PREFIX);
