@@ -8,7 +8,7 @@ public class CustomDelimiterExtractor {
         int start = input.indexOf(PREFIX);
         int end = input.indexOf(SUFFIX);
 
-        String delimiter = input.substring(start, end + 1);
+        String delimiter = input.substring(start, end + SUFFIX.length());
         delimiter = delimiter.replaceFirst(PREFIX, "");
 
         end = delimiter.lastIndexOf(SUFFIX);
