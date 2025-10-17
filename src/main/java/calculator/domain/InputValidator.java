@@ -1,43 +1,21 @@
 package calculator.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class InputValidator {
     private static final String CUSTOM_DELIMITER_REGEXP = "^//(.)\\\\n.*";
-    private final CustomDelimiterExtractor customDelimiterExtractor;
-    private final InputParser inputParser;
-    private static final String SUFFIX = "\\n";
-    public final List<Character> delimiters = new ArrayList<>(List.of(':', ','));
+    private final CustomDelimiterHandler customDelimiterHandler;
 
-    public InputValidator(CustomDelimiterExtractor customDelimiterExtractor, InputParser inputParser) {
-        this.customDelimiterExtractor = customDelimiterExtractor;
-        this.inputParser = inputParser;
+    public InputValidator(CustomDelimiterHandler customDelimiterHandler) {
+        this.customDelimiterHandler = customDelimiterHandler;
     }
 
-    public void validInput(String input) {
+    public String validInput(String input) {
         if (!input.isEmpty() && input.isBlank()) {
             throw new IllegalArgumentException();
         }
 
         if (input.matches(CUSTOM_DELIMITER_REGEXP)) {
-            input = customDelimiterHandler(input);
+            input = customDelimiterHandler.handleCustomDelimiter(input);
         }
-
-        inputParser.parseInput(input, delimiters);
-    }
-
-    private String customDelimiterHandler(String input) {
-        char customDelimiter = customDelimiterExtractor.extractDelimiter(input);
-
-        if (Character.isDigit(customDelimiter)) {
-            throw new IllegalArgumentException();
-        }
-        delimiters.add(customDelimiter); // 구분자에 커스텀 구분자 추가
-
-        int idx = input.indexOf(SUFFIX) + SUFFIX.length();
-        input = input.substring(idx); // input에서 커스텀 구분자 지정 형식을 제거
-
         return input;
     }
 }
