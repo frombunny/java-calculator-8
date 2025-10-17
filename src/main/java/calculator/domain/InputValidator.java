@@ -16,22 +16,28 @@ public class InputValidator {
     }
 
     public void validInput(String input) {
-        if (input.equals(" ")) {
+        if (!input.isEmpty() && input.isBlank()) {
             throw new IllegalArgumentException();
         }
 
         if (input.matches(CUSTOM_DELIMITER_REGEXP)) {
-            char customDelimiter = customDelimiterExtractor.extractDelimiter(input);
-
-            if (Character.isDigit(customDelimiter)) {
-                throw new IllegalArgumentException();
-            }
-            delimiters.add(customDelimiter); // 구분자에 커스텀 구분자 추가
-
-            int idx = input.indexOf(SUFFIX) + SUFFIX.length();
-            input = input.substring(idx); // input에서 커스텀 구분자 지정 형식을 제거
+            input = customDelimiterHandler(input);
         }
 
         inputParser.parseInput(input, delimiters);
+    }
+
+    private String customDelimiterHandler(String input) {
+        char customDelimiter = customDelimiterExtractor.extractDelimiter(input);
+
+        if (Character.isDigit(customDelimiter)) {
+            throw new IllegalArgumentException();
+        }
+        delimiters.add(customDelimiter); // 구분자에 커스텀 구분자 추가
+
+        int idx = input.indexOf(SUFFIX) + SUFFIX.length();
+        input = input.substring(idx); // input에서 커스텀 구분자 지정 형식을 제거
+
+        return input;
     }
 }
