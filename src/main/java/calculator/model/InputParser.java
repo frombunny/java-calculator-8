@@ -1,4 +1,4 @@
-package calculator.domain;
+package calculator.model;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,5 +1,8 @@
-package calculator.domain;
+package calculator.contoroller;
 
+import calculator.model.Calculator;
+import calculator.model.InputParser;
+import calculator.model.InputValidator;
 import calculator.view.InputView;
 import calculator.view.OutputView;
 import java.util.List;
