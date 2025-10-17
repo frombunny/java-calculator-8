@@ -2,7 +2,6 @@ package calculator.domain;
 
 import calculator.view.InputView;
 import calculator.view.OutputView;
-import java.util.ArrayList;
 import java.util.List;
 
 public class StringCalculator {
@@ -11,9 +10,6 @@ public class StringCalculator {
     private final InputParser inputParser;
     private final Calculator calculator;
     private final OutputView outputView;
-
-    private List<Character> delimiters = new ArrayList<>(List.of(',', ':'));
-    private List<Integer> nums = new ArrayList<>();
 
     public StringCalculator(InputView inputView, InputValidator inputValidator, InputParser inputParser,
                             Calculator calculator, OutputView outputView) {
@@ -27,9 +23,10 @@ public class StringCalculator {
     public void run() {
         String input = inputView.readInput();
 
-        input = inputValidator.validInput(input);
+        inputValidator.validInput(input);
 
-        nums = inputParser.parseInput(input, delimiters);
+        input = inputParser.refineInput(input);
+        List<Integer> nums = inputParser.parseInput(input);
         int sum = calculator.calculateSum(nums);
 
         outputView.printOutput(sum);

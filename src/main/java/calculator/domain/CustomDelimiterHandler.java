@@ -5,14 +5,13 @@ public class CustomDelimiterHandler {
     private static final String SUFFIX = "\\n";
 
     public String handleCustomDelimiter(String input) {
-        char delimiter = extractCustomDelimiter(input);
         int idx = input.indexOf(SUFFIX) + SUFFIX.length();
         input = input.substring(idx); // input에서 커스텀 구분자 지정 형식을 제거
 
         return input;
     }
 
-    private char extractCustomDelimiter(String input) {
+    public char extractCustomDelimiter(String input) {
         int start = input.indexOf(PREFIX);
         int end = input.indexOf(SUFFIX);
 

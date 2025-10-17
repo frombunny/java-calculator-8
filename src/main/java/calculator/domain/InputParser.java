@@ -4,7 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InputParser {
-    public List<Integer> parseInput(String input, List<Character> delimiters) {
+    private static final String CUSTOM_DELIMITER_REGEXP = "^//(.)\\\\n.*";
+    private final CustomDelimiterHandler customDelimiterHandler;
+    private final List<Character> delimiters = new ArrayList<>(List.of(',', ':'));
+
+    public InputParser(CustomDelimiterHandler customDelimiterHandler) {
+        this.customDelimiterHandler = customDelimiterHandler;
+    }
+
+    public List<Integer> parseInput(String input) {
         List<Integer> nums = new ArrayList<>();
         StringBuilder buffer = new StringBuilder();
 
@@ -26,5 +34,15 @@ public class InputParser {
         }
 
         return nums;
+    }
+
+    public String refineInput(String input) {
+        if (input.matches(CUSTOM_DELIMITER_REGEXP)) {
+            char delimiter = customDelimiterHandler.extractCustomDelimiter(input);
+            delimiters.add(delimiter);
+
+            input = customDelimiterHandler.handleCustomDelimiter(input);
+        }
+        return input;
     }
 }
