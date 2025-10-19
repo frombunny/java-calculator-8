@@ -9,10 +9,20 @@ public class InputParserTest {
     void 정상_입력은_숫자_리스트로_파싱된다() {
         CustomDelimiterHandler customDelimiterHandler = new CustomDelimiterHandler();
         InputParser inputParser = new InputParser(customDelimiterHandler);
-        String input = inputParser.refineInput("//;\\n1;2,3:4");
+        String input = inputParser.refineInput("//;\\n12;2,3:4");
 
         List<Integer> result = inputParser.parseInput(input);
-        Assertions.assertEquals(List.of(1, 2, 3, 4), result);
+        Assertions.assertEquals(List.of(12, 2, 3, 4), result);
+    }
+
+    @Test
+    void 숫자_사이_구분자가_연속으로_들어올_경우_정상_입력으로_처리된다() {
+        CustomDelimiterHandler customDelimiterHandler = new CustomDelimiterHandler();
+        InputParser inputParser = new InputParser(customDelimiterHandler);
+        String input = inputParser.refineInput("//;\\n2;;3;4");
+
+        List<Integer> result = inputParser.parseInput(input);
+        Assertions.assertEquals(List.of(2, 3, 4), result);
     }
 
     @Test
