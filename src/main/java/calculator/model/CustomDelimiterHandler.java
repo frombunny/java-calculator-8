@@ -21,6 +21,10 @@ public class CustomDelimiterHandler {
         end = delimiterFormat.lastIndexOf(SUFFIX);
         delimiterFormat = delimiterFormat.substring(0, end);
 
+        if (delimiterFormat.length() > 1) {
+            throw new IllegalArgumentException();
+        }
+
         char delimiter = delimiterFormat.charAt(0);
 
         if (Character.isDigit(delimiter)) {

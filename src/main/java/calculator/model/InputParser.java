@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InputParser {
-    private static final String CUSTOM_DELIMITER_REGEXP = "^//(.)\\\\n.*";
+    private static final String CUSTOM_DELIMITER_REGEXP = "^//(.+)\\\\n.*";
     private final CustomDelimiterHandler customDelimiterHandler;
     private final List<Character> delimiters = new ArrayList<>(List.of(',', ':'));
 
