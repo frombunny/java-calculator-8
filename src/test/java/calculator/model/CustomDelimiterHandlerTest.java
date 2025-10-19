@@ -29,7 +29,16 @@ public class CustomDelimiterHandlerTest {
     }
 
     @Test
-    void 커스텀_구분자가_숫자라면_예외를_던진다() {
+    void 커스텀_구분자가_문자열일_경우_예외를_던진다() {
+        CustomDelimiterHandler customDelimiterHandler = new CustomDelimiterHandler();
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            customDelimiterHandler.extractCustomDelimiter("//;;\\n2;3;4");
+        });
+    }
+
+    @Test
+    void 커스텀_구분자가_숫자일_경우_예외를_던진다() {
         CustomDelimiterHandler customDelimiterHandler = new CustomDelimiterHandler();
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
